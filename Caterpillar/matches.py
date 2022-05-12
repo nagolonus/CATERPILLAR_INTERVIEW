@@ -7,7 +7,8 @@ def main():
     # <a number between 1 - 65535>
     # <Optional closing double-quote>
     pattern = \
-        "((port:\"|service:\"|port\\s|Port:\\s)"\
+        "((port:\"|service:\"|port\\s|Port:\\s|"\
+        "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){{3}}:))"\
         "((65[0-5][0-3][0-5])|(6[0-4][0-9]{{3}})|([0-5][0-9]{{4}})|([0-9]{{2,4}})|([1-9]{{1}}))"\
         "(?:\")?)"
     
@@ -18,8 +19,9 @@ def main():
         ports = re.findall(pattern.format(),logs.read())
 
     # Print each port from matches.
+    print(ports)
     for port in ports:
-        print("Port:", port[2])        
+        print("Port:", port[6])        
 
 if __name__ == "__main__":
     main()
